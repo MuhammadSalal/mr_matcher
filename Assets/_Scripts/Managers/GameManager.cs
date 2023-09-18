@@ -20,6 +20,7 @@ namespace CyberSpeed.Matcher
         List<CardData> _cardDatas;
         int _ConnectedCards;
 
+        int _currentSelectedID;
         private void Awake()
         {
             GetCards();
@@ -32,12 +33,39 @@ namespace CyberSpeed.Matcher
 
         private void OnEnable()
         {
-
+            EventManager.OnCardSelected.AddListener(OnCardSelected);
         }
         private void OnDisable()
         {
+            EventManager.OnCardSelected.RemoveListener(OnCardSelected);
+        }
+
+
+        #region EVENT_CALLBACKS
+
+        void OnCardSelected(int Id)
+        {
+            if (_currentSelectedID == 0)
+            {
+                _currentSelectedID = Id;
+                return;
+            }
+
+            if (_currentSelectedID == Id)
+            {
+                Debug.Log("Correct Card Picked!");
+                _currentSelectedID = 0;
+            }
+            else
+            {
+                Debug.Log("Wrong Card Picked");
+            }
 
         }
+
+
+        #endregion
+
 
         void GetCards()
         {
@@ -52,7 +80,7 @@ namespace CyberSpeed.Matcher
 
             for (int i = 0; i < _ConnectedCards; i++)
             {
-                CardData cardData = new CardData(i, GetSprite());
+                CardData cardData = new CardData((i + 1), GetSprite());
 
                 _cardDatas.Add(cardData);
                 _cardDatas.Add(cardData);
