@@ -1314,6 +1314,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startButton: {fileID: 1722887545}
+  _scoreText: {fileID: 484413181}
+  _levelText: {fileID: 1947151901}
 --- !u!1 &1437747256
 GameObject:
   m_ObjectHideFlags: 0
