@@ -17,6 +17,11 @@ namespace CyberSpeed.Matcher
         public static readonly CustomEvent<int> OnCorrectCardPicked = new CustomEvent<int>();
 
         public static readonly CustomEvent OnWrongCardPicked = new CustomEvent();
+
+        public static readonly CustomEvent OnAllCardsMatched = new CustomEvent();
+
+        public static readonly CustomEvent OnBackToStartingScene = new CustomEvent();
+
     }
 
 }

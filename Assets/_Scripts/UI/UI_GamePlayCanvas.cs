@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace CyberSpeed.Matcher
 {
@@ -11,6 +12,9 @@ namespace CyberSpeed.Matcher
         [SerializeField] TextMeshProUGUI _scoreText;
         [SerializeField] TextMeshProUGUI _matchesText;
         [SerializeField] TextMeshProUGUI _turnsText;
+
+        [Header("Back button")]
+        [SerializeField] Button _backButton;
 
         [Header("SO Refrence")]
         [SerializeField] GameSettings _gameSettings;
@@ -25,13 +29,17 @@ namespace CyberSpeed.Matcher
         {
             InitlizeValues();
 
+            _backButton.onClick.AddListener(OnBackButtonPressed);
             EventManager.OnCorrectCardPicked.AddListener(OnCorrectCardPicked);
             EventManager.OnWrongCardPicked.AddListener(OnWrongCardPicked);
+            EventManager.OnAllCardsMatched.AddListener(OnAllCardsMatched);
         }
         private void OnDisable()
         {
+            _backButton.onClick.RemoveListener(OnBackButtonPressed);
             EventManager.OnCorrectCardPicked.RemoveListener(OnCorrectCardPicked);
             EventManager.OnWrongCardPicked.RemoveListener(OnWrongCardPicked);
+            EventManager.OnAllCardsMatched.RemoveListener(OnAllCardsMatched);
         }
 
 
@@ -55,7 +63,18 @@ namespace CyberSpeed.Matcher
 
         }
 
+        void OnAllCardsMatched()
+        {
+            _backButton.enabled = false;
+        }
+
         #endregion
+
+        void OnBackButtonPressed()
+        {
+            _backButton.enabled = false;
+            EventManager.OnBackToStartingScene?.Invoke();
+        }
 
 
         void InitlizeValues()

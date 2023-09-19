@@ -13,6 +13,7 @@ namespace CyberSpeed.Matcher
 
         [Header("SO Refrence")]
         [SerializeField] SpriteCollection _spriteCollection;
+        [SerializeField] GameSettings _gameSettings;
 
 
         List<Sprite> _newSpriteCollection;
@@ -20,6 +21,7 @@ namespace CyberSpeed.Matcher
         List<CardData> _cardDatas;
         int _ConnectedCards;
         int _currentSelectedID;
+        int _correctMatchCount;
         SaveData _saveData;
 
         private void Awake()
@@ -35,10 +37,17 @@ namespace CyberSpeed.Matcher
         private void OnEnable()
         {
             EventManager.OnCardSelected.AddListener(OnCardSelected);
+            EventManager.OnBackToStartingScene.AddListener(OnBackToStartingScene);
         }
         private void OnDisable()
         {
             EventManager.OnCardSelected.RemoveListener(OnCardSelected);
+            EventManager.OnBackToStartingScene.RemoveListener(OnBackToStartingScene);
+        }
+
+        private void OnApplicationQuit()
+        {
+            SaveGameData();
         }
 
 
@@ -57,8 +66,15 @@ namespace CyberSpeed.Matcher
             if (_currentSelectedID == selectedCard.GetID())
             {
                 EventManager.OnCorrectCardPicked?.Invoke(_currentSelectedID);
+                UpdateScore();
+                _correctMatchCount++;
                 _currentSelectedID = 0;
                 selectedCard.FlipShow();
+
+                if (IsAllCardsMatched())
+                {
+                    LevelComplete();
+                }
 
             }
             else
@@ -67,6 +83,11 @@ namespace CyberSpeed.Matcher
                 selectedCard.FlipNoMatch();
             }
 
+        }
+
+        void OnBackToStartingScene()
+        {
+            SaveGameData();
         }
 
 
@@ -127,7 +148,28 @@ namespace CyberSpeed.Matcher
             return card;
         }
 
+        bool IsAllCardsMatched()
+        {
+            return _correctMatchCount == _ConnectedCards;
+        }
+
+        void UpdateScore()
+        {
+            _saveData.Score += _gameSettings.ScorePerCorrectMatch;
+        }
 
 
+        void LevelComplete()
+        {
+            _saveData.LevelsCompleted++;
+            SaveGameData();
+            EventManager.OnAllCardsMatched?.Invoke();
+        }
+
+
+        void SaveGameData()
+        {
+            SaveManager.SaveFile(_saveData);
+        }
     }
 }

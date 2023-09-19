@@ -29,6 +29,7 @@ namespace CyberSpeed.Matcher
             _button.onClick.AddListener(OnButtonClick);
 
             EventManager.OnCorrectCardPicked.AddListener(OnCorrectCardPicked);
+            EventManager.OnBackToStartingScene.AddListener(OnBackToStartingScene);
 
         }
         private void OnDisable()
@@ -36,6 +37,7 @@ namespace CyberSpeed.Matcher
             _button.onClick.RemoveListener(OnButtonClick);
 
             EventManager.OnCorrectCardPicked.RemoveListener(OnCorrectCardPicked);
+            EventManager.OnBackToStartingScene.RemoveListener(OnBackToStartingScene);
         }
 
         private void Start()
@@ -106,6 +108,10 @@ namespace CyberSpeed.Matcher
             }
         }
 
+        void OnBackToStartingScene()
+        {
+            ToggleButton(false);
+        }
 
         #endregion
 

@@ -1465,6 +1465,7 @@ MonoBehaviour:
   _gameDifficulty: 0
   _foodPanel: {fileID: 190066768}
   _spriteCollection: {fileID: 11400000, guid: 1ac9043a9975c034ab271d18c8d3f97e, type: 2}
+  _gameSettings: {fileID: 11400000, guid: 7a18efb65d9705848b3962baa246adf7, type: 2}
 --- !u!1 &1846472737
 GameObject:
   m_ObjectHideFlags: 0
@@ -1916,4 +1917,62 @@ MonoBehaviour:
   _scoreText: {fileID: 176644978}
   _matchesText: {fileID: 480267144}
   _turnsText: {fileID: 1948510118}
+  _backButton: {fileID: 832829006}
   _gameSettings: {fileID: 11400000, guid: 7a18efb65d9705848b3962baa246adf7, type: 2}
+--- !u!1001 &7643556393544039173
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2690292792173502406, guid: 7748cbc9f39b81548939d0604bbbb836, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690292792173502406, guid: 7748cbc9f39b81548939d0604bbbb836, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690292792173502406, guid: 7748cbc9f39b81548939d0604bbbb836, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690292792173502406, guid: 7748cbc9f39b81548939d0604bbbb836, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690292792173502406, guid: 7748cbc9f39b81548939d0604bbbb836, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690292792173502406, guid: 7748cbc9f39b81548939d0604bbbb836, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690292792173502406, guid: 7748cbc9f39b81548939d0604bbbb836, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690292792173502406, guid: 7748cbc9f39b81548939d0604bbbb836, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690292792173502406, guid: 7748cbc9f39b81548939d0604bbbb836, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690292792173502406, guid: 7748cbc9f39b81548939d0604bbbb836, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690292792173502406, guid: 7748cbc9f39b81548939d0604bbbb836, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690292792173779422, guid: 7748cbc9f39b81548939d0604bbbb836, type: 3}
+      propertyPath: m_Name
+      value: ConfettiFlakes
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7748cbc9f39b81548939d0604bbbb836, type: 3}
