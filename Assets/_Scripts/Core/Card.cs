@@ -8,33 +8,43 @@ namespace CyberSpeed.Matcher
 {
     public class Card : MonoBehaviour, ICard
     {
+
         [SerializeField] Sprite _hideSprite;
 
         [Header("SO Refrence")]
         [SerializeField] GameSettings _gameSettings;
 
-        int _currentSelectedID;
-
         Image _image;
         Button _button;
+        CanvasGroup _canvasGroup;
         CardData _cardData;
+
+
         Vector3 _hideAngle;
+        Vector3 _showAngle;
 
         private void OnEnable()
         {
             InitlizeComponents();
             _button.onClick.AddListener(OnButtonClick);
 
+            EventManager.OnCorrectCardPicked.AddListener(OnCorrectCardPicked);
+
         }
         private void OnDisable()
         {
             _button.onClick.RemoveListener(OnButtonClick);
+
+            EventManager.OnCorrectCardPicked.RemoveListener(OnCorrectCardPicked);
         }
 
         private void Start()
         {
             HideInitialCards();
         }
+
+
+        #region INTERFACE_CONTRACTS
 
         public void SetCard(CardData cardData)
         {
@@ -44,13 +54,67 @@ namespace CyberSpeed.Matcher
 
         }
 
+        public void FlipShow()
+        {
+            ToggleButton(false);
+            transform.DORotate(_hideAngle, _gameSettings.CardFlipDuration)
+              .OnComplete(() =>
+              {
+                  SetSprite(_cardData.Sprite);
+                  transform.DORotate(Vector3.zero, _gameSettings.CardFlipDuration);
+              });
+        }
+
+        public void FlipNoMatch()
+        {
+            Sequence sequence = DOTween.Sequence();
+
+            sequence.Append(transform.DORotate(_hideAngle, _gameSettings.CardFlipDuration).OnComplete(() =>
+            {
+                SetSprite(_cardData.Sprite);
+            }));
+            sequence.Append(transform.DORotate(_showAngle, _gameSettings.CardFlipDuration));
+
+
+            sequence.Append(transform.DORotate(_hideAngle, _gameSettings.CardFlipDuration).SetDelay(_gameSettings.WrongCardShowDuration).OnComplete(() =>
+            {
+                SetSprite(_hideSprite);
+            }));
+            sequence.Append(transform.DORotate(_showAngle, _gameSettings.CardFlipDuration));
+            sequence.OnComplete(() => ToggleButton(true));
+
+
+        }
+
+        public int GetID()
+        {
+            return _cardData.ID;
+        }
+
+
+
+        #endregion
+
+
+        #region EVENT_CALLBACKS
+
+        void OnCorrectCardPicked(int id)
+        {
+            if (_cardData.ID == id)
+            {
+                StartCoroutine(DisableCard(1));
+            }
+        }
+
+
+        #endregion
 
         void OnButtonClick()
         {
             Debug.Log("Button Pressed");
             ToggleButton(false);
-            EventManager.OnCardSelected?.Invoke(_cardData.ID);
-            ShowCard();
+            EventManager.OnCardSelected?.Invoke(this);
+
         }
 
 
@@ -59,8 +123,10 @@ namespace CyberSpeed.Matcher
         {
             _button = GetComponent<Button>();
             _image = GetComponent<Image>();
+            _canvasGroup = GetComponent<CanvasGroup>();
 
             _hideAngle = new Vector3(0, 90, 0);
+            _showAngle = Vector3.zero;
         }
 
         void HideInitialCards()
@@ -86,14 +152,11 @@ namespace CyberSpeed.Matcher
             _image.sprite = sprite;
         }
 
-        void ShowCard()
+
+        IEnumerator DisableCard(float time)
         {
-            transform.DORotate(_hideAngle, _gameSettings.CardFlipDuration)
-               .OnComplete(() =>
-               {
-                   SetSprite(_cardData.Sprite);
-                   transform.DORotate(Vector3.zero, _gameSettings.CardFlipDuration).OnComplete(() => ToggleButton(true));
-               });
+            yield return new WaitForSeconds(time);
+            _canvasGroup.alpha = 0;
         }
     }
 }

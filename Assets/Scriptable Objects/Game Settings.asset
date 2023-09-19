@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86eadff8a3c919345aa70a561fa9337d, type: 3}
   m_Name: Game Settings
   m_EditorClassIdentifier: 
+  ScorePerCorrectMatch: 5
   InitialCardShowTime: 1
   CardFlipDuration: 0.1
+  WrongCardShowDuration: 0.25

@@ -19,8 +19,9 @@ namespace CyberSpeed.Matcher
         List<ICard> _cardsColleciton;
         List<CardData> _cardDatas;
         int _ConnectedCards;
-
         int _currentSelectedID;
+        SaveData _saveData;
+
         private void Awake()
         {
             GetCards();
@@ -43,22 +44,27 @@ namespace CyberSpeed.Matcher
 
         #region EVENT_CALLBACKS
 
-        void OnCardSelected(int Id)
+        void OnCardSelected(ICard selectedCard)
         {
+
             if (_currentSelectedID == 0)
             {
-                _currentSelectedID = Id;
+                _currentSelectedID = selectedCard.GetID();
+                selectedCard.FlipShow();
                 return;
             }
 
-            if (_currentSelectedID == Id)
+            if (_currentSelectedID == selectedCard.GetID())
             {
-                Debug.Log("Correct Card Picked!");
+                EventManager.OnCorrectCardPicked?.Invoke(_currentSelectedID);
                 _currentSelectedID = 0;
+                selectedCard.FlipShow();
+
             }
             else
             {
-                Debug.Log("Wrong Card Picked");
+                EventManager.OnWrongCardPicked?.Invoke();
+                selectedCard.FlipNoMatch();
             }
 
         }
@@ -74,6 +80,9 @@ namespace CyberSpeed.Matcher
         }
         void InitlizeValues()
         {
+
+            _saveData = SaveManager.GetJsonFile();
+
             _ConnectedCards = _cardsColleciton.Count / 2;
             _newSpriteCollection = new List<Sprite>(_spriteCollection.Sprites.ToList());
             _cardDatas = new List<CardData>();
