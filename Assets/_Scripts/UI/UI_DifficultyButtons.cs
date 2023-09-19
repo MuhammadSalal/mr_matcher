@@ -36,6 +36,7 @@ namespace CyberSpeed.Matcher
 
         void ButtonPressed()
         {
+            SoundManager.Singleton?.ButtonClick();
             EventManager.OnDifficultySelected?.Invoke(_difficulty);
         }
     }

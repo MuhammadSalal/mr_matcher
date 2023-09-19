@@ -75,10 +75,15 @@ namespace CyberSpeed.Matcher
                 {
                     LevelComplete();
                 }
+                else
+                {
+                    SoundManager.Singleton?.CardMatch();
+                }
 
             }
             else
             {
+                SoundManager.Singleton?.MissMatch();
                 EventManager.OnWrongCardPicked?.Invoke();
                 selectedCard.FlipNoMatch();
             }
@@ -164,6 +169,7 @@ namespace CyberSpeed.Matcher
             _saveData.LevelsCompleted++;
             SaveGameData();
             EventManager.OnAllCardsMatched?.Invoke();
+            SoundManager.Singleton?.GameOver();
         }
 
 

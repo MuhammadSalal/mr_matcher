@@ -117,7 +117,7 @@ namespace CyberSpeed.Matcher
 
         void OnButtonClick()
         {
-            Debug.Log("Button Pressed");
+            SoundManager.Singleton?.CardFlip();
             ToggleButton(false);
             EventManager.OnCardSelected?.Invoke(this);
 

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c47376ff14c77541a831e51558bb2c4, type: 3}
+  m_Name: New Sound Collection
+  m_EditorClassIdentifier: 
+  ButtonClick:
+    AudioClip: {fileID: 8300000, guid: d2a79c372834aac40a0f76bddfbddbac, type: 3}
+    Volume: 1
+  CardFlip:
+    AudioClip: {fileID: 8300000, guid: bcd77c82a183b4c478f34f1265241f4a, type: 3}
+    Volume: 1
+  CardMatch:
+    AudioClip: {fileID: 8300000, guid: 38701a302a9610444be9e802381ae6d0, type: 3}
+    Volume: 1
+  CardMissMatch:
+    AudioClip: {fileID: 8300000, guid: eef11de79263d4849abc2a8f7cb222f2, type: 3}
+    Volume: 1
+  GameOver:
+    AudioClip: {fileID: 8300000, guid: 85f131cae83a207449f7498c8ccd4d83, type: 3}
+    Volume: 1

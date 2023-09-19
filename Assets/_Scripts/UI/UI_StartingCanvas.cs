@@ -38,6 +38,7 @@ namespace CyberSpeed.Matcher
         {
             _startButton.enabled = false;
 
+            SoundManager.Singleton?.ButtonClick();
             EventManager.OnStartLevel?.Invoke((int)_gameDifficulty);
 
         }

@@ -72,6 +72,7 @@ namespace CyberSpeed.Matcher
 
         void OnBackButtonPressed()
         {
+            SoundManager.Singleton?.ButtonClick();
             _backButton.enabled = false;
             EventManager.OnBackToStartingScene?.Invoke();
         }
