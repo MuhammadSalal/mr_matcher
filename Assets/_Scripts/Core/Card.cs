@@ -40,6 +40,11 @@ namespace CyberSpeed.Matcher
             EventManager.OnBackToStartingScene.RemoveListener(OnBackToStartingScene);
         }
 
+        private void OnDestroy()
+        {
+            transform.DOKill();
+        }
+
         private void Start()
         {
             HideInitialCards();
